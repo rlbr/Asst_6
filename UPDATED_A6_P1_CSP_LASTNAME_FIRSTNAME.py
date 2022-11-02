@@ -105,8 +105,21 @@ def getNextVariable(g, domains, degrees):
 
 
 def AC3(g, domains, v):
-    pass
+    domains = copy.deepcopy(domains)
+    queue = [v]
 
+    while len(queue):
+        selected = queue.pop()
+        color = domains[selected][0]
+        for node in range(len(g)):
+            if g[node][selected]:
+                if color in domains[node]:
+                    domains[node].remove(color)
+                    if len(domains[node]) == 1:
+                        queue.append(node)
+                    if len(domains[node]) == 0:
+                        return []
+    return domains
 
 # =======================================================================
 # Problem 1d
