@@ -149,8 +149,8 @@ def backtrack(g, domains, degrees):
 
     options = domains[best_var].copy()
     for color in options:
-        options[best_var] = [color]
-        new_domains = AC3(g, domains, degrees)
+        domains[best_var] = [color]
+        new_domains = AC3(g, domains, best_var)
         if new_domains:
             b = backtrack(g, new_domains, degrees)
             if b:
