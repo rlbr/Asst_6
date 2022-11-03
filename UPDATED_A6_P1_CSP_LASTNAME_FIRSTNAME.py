@@ -140,7 +140,19 @@ def AC3(g, domains, v):
 
 
 def backtrack(g, domains, degrees):
-    pass
+    best_var = getNextVariable(g, domains, degrees)
+    if best_var == -1:
+        return domains
+
+    options = domains[best_var].copy()
+    for color in options:
+        options[best_var] = [color]
+        new_domains = AC3(g, domains, degrees)
+        if new_domains:
+            b = backtrack(g, new_domains, degrees)
+            if b:
+                return b
+    return []
 
 
 # =================================================
