@@ -80,12 +80,15 @@ def backtrackingSearch(g, m):
 
 def getNextVariable(g, domains, degrees):
     lens = set(map(len, domains))
-    lens.remove(1)
+    try:
+        lens.remove(1)
+    except KeyError:
+        pass
+    if len(lens) == 0:
+        return -1
     min_d = min(lens)
     min_d_index = [i for i, d in enumerate(domains) if len(d) == min_d]
     by_degree = sorted(min_d_index, key=lambda i: degrees[i], reverse=True)
-    if len(by_degree) == 0:
-        return -1
     return by_degree[0]
 
 
